@@ -31,13 +31,12 @@ public class App {
 
     private static void displayMenuPrincipal(Usuario usuario) throws SQLException {
         System.out.println("1. Departamentos");
-        System.out.println("2. Usuarios"); // Add option for Users (incomplete)
-        System.out.println("3. Obras"); // Add option for Obras (incomplete)
+        System.out.println("2. Usuarios");
         System.out.println("4. Salir");
 
         Scanner scanner = new Scanner(System.in);
         int option = scanner.nextInt();
-        scanner.nextLine(); // Consume newline character
+        scanner.nextLine(); 
 
         switch (option) {
             case 1:
@@ -54,7 +53,7 @@ public class App {
                 break;
             default:
                 System.out.println("Opción no válida.");
-                displayMenuPrincipal(usuario); // Display menu again for invalid option
+                displayMenuPrincipal(usuario); 
         }
     }
 
@@ -96,7 +95,7 @@ public class App {
                 break;
             default:
                 System.out.println("Opción no válida.");
-                displayMenuDepartamentos(usuario); // Display menu again for invalid option
+                displayMenuDepartamentos(usuario);
         }
     }
 

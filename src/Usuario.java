@@ -5,12 +5,22 @@ public class Usuario {
     private String nombre;
     private String password;
     private int departamento_id;
+    private boolean admin = false;
 
-    public Usuario(int id, String nombre, String password, int departamento_id) {
+    public Usuario(int id, String nombre, String password, int departamento_id, boolean admin) {
         this.id = id;
         this.nombre = nombre;
         this.password = password;
         this.departamento_id = departamento_id;
+        this.admin = admin;
+    }
+
+    public Usuario(String nombre, String password, int departamento_id, boolean admin) {
+        this.id = -1;
+        this.nombre = nombre;
+        this.password = password;
+        this.departamento_id = departamento_id;
+        this.admin = admin;
     }
 
     public boolean save() throws SQLException {
@@ -64,5 +74,9 @@ public class Usuario {
 
     public void setDepartamento_id(int departamento_id) {
         this.departamento_id = departamento_id;
+    }
+
+    public boolean esAdmin() {
+        return admin;
     }
 }

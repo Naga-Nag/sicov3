@@ -45,11 +45,18 @@ public class MySQLConnector {
             rs.getInt("id"),
             rs.getString("nombre"),
             rs.getString("password"),
-            rs.getInt("departamento_id")
+            rs.getInt("departamento_id"),
+            rs.getBoolean("admin")
+
         );
       } else {
         return null; // Login failed - no user found with that username and password
       }
     }
+  }
+
+  public ResultSet getUsuarios() throws SQLException {
+    MySQLConnector connector = new MySQLConnector();
+    return connector.query("SELECT * FROM Usuario");
   }
 }

@@ -4,8 +4,14 @@ CREATE TABLE Usuario (
     nombre VARCHAR(50) NOT NULL,
     password VARCHAR(50) NOT NULL,
     departamento_id INTEGER,
+    admin BOOLEAN DEFAULT false,
     FOREIGN KEY (departamento_id) REFERENCES Departamento(id)
 )
 
-INSERT INTO Usuario (nombre, password, departamento_id) VALUES
-('admin', 'admin', 1)
+INSERT INTO Usuario (nombre, password, departamento_id, admin) VALUES
+('admin', 'admin', 1, true)
+
+
+
+
+DROP TABLE Usuario

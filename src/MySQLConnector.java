@@ -1,27 +1,34 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 
 public class MySQLConnector {
 
-    private static Connection con;
+  private static Connection con;
 
-    public static void main(String args[]) {
-        try {
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sico", "root", "root");
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from Obra");
-            while (rs.next()) {
-                System.out.println(rs.getInt(1) + "  " + rs.getString(2) + "  " + rs.getString(3));
-            }
-            con.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+  public MySQLConnector() throws SQLException {
+    try {
+      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sico", "root", "root");
+    } catch (SQLException ex) {
+      ex.printStackTrace();
     }
+  }
 
-    public static Connection getConnection() {
-        return con;
+  public Connection getConnection() {
+    return con;
+  }
+
+  public ResultSet query(String query) throws SQLException {
+    try {
+      return con.createStatement().executeQuery(query);
+    } catch (SQLException ex) {
+      throw ex;
     }
+  }
+
+  public ResultSet getDepartamentos() throws SQLException {
+    MySQLConnector connector = new MySQLConnector();
+    return connector.query("SELECT * FROM Departamento");
+  }
 }

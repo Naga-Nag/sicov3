@@ -1,3 +1,5 @@
+import java.sql.SQLException;
+
 public class Usuario {
     private int id;
     private String nombre;
@@ -9,6 +11,27 @@ public class Usuario {
         this.nombre = nombre;
         this.password = password;
         this.departamento_id = departamento_id;
+    }
+
+    public boolean save() throws SQLException {
+        String query;
+        if (this.id > 0) {
+            // Update existing user
+            query = "UPDATE Usuario SET nombre = ?, password = ?, departamento_id = ? WHERE id = ?";
+        } else {
+            // Insert new user
+            query = "INSERT INTO Usuario (nombre, password, departamento_id) VALUES (?, ?, ?)";
+        }
+
+        try (var preparedStatement = MySQLConnector.getConnection().prepareStatement(query)) {
+            preparedStatement.setString(1, this.nombre);
+            preparedStatement.setString(2, this.password);
+            preparedStatement.setInt(3, this.departamento_id);
+            if (this.id > 0) {
+                preparedStatement.setInt(4, this.id);
+            }
+            return preparedStatement.executeUpdate() > 0; // Check if update/insert affected any rows
+        }
     }
 
     public int getId() {

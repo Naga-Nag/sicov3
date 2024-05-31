@@ -49,4 +49,15 @@ public class Departamento {
         this.nombre = nombre;
     }
 
+    public static void main(String[] args) {
+        try {
+            Departamento d = new Departamento(1);
+            System.out.println("ID: " + d.getId());
+            System.out.println("Cuatrigrama: " + d.getCuatrigrama());
+            System.out.println("Nombre: " + d.getNombre());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
+

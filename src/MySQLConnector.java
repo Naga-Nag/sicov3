@@ -15,7 +15,7 @@ public class MySQLConnector {
     }
   }
 
-  public Connection getConnection() {
+  public static Connection getConnection() {
     return con;
   }
 
@@ -30,5 +30,26 @@ public class MySQLConnector {
   public ResultSet getDepartamentos() throws SQLException {
     MySQLConnector connector = new MySQLConnector();
     return connector.query("SELECT * FROM Departamento");
+  }
+
+  public static Usuario login(String nombre, String password) throws SQLException {
+    String query = "SELECT * FROM Usuario WHERE nombre = ? AND password = ?";
+
+    try (var preparedStatement = MySQLConnector.getConnection().prepareStatement(query)) {
+      preparedStatement.setString(1, nombre);
+      preparedStatement.setString(2, password);
+      ResultSet rs = preparedStatement.executeQuery();
+
+      if (rs.next()) {
+        return new Usuario(
+            rs.getInt("id"),
+            rs.getString("nombre"),
+            rs.getString("password"),
+            rs.getInt("departamento_id")
+        );
+      } else {
+        return null; // Login failed - no user found with that username and password
+      }
+    }
   }
 }

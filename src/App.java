@@ -1,13 +1,13 @@
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
 public class App {
+
     public static void main(String[] args) throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
-        // Credenciales
+        // Login section
         System.out.print("Username: ");
         String username = scanner.nextLine();
 
@@ -18,15 +18,44 @@ public class App {
         MySQLConnector con = new MySQLConnector();
         Usuario usuario = con.login(username, password);
         limpiarDisplay();
+
         if (usuario != null) {
             System.out.println("Bienvenido " + usuario.getNombre());
-
-            displayMenuPrincipal();
+            displayMenuPrincipal(usuario);
         } else {
             System.out.println("Error al iniciar sesión.");
         }
 
         scanner.close();
+    }
+
+    private static void displayMenuPrincipal(Usuario usuario) throws SQLException {
+        System.out.println("1. Departamentos");
+        System.out.println("2. Usuarios"); // Add option for Users (incomplete)
+        System.out.println("3. Obras"); // Add option for Obras (incomplete)
+        System.out.println("4. Salir");
+
+        Scanner scanner = new Scanner(System.in);
+        int option = scanner.nextInt();
+        scanner.nextLine(); // Consume newline character
+
+        switch (option) {
+            case 1:
+                limpiarDisplay();
+                try {
+                    displayDepartamentos();
+                    displayMenuDepartamentos(usuario);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 4:
+                System.exit(0);
+                break;
+            default:
+                System.out.println("Opción no válida.");
+                displayMenuPrincipal(usuario); // Display menu again for invalid option
+        }
     }
 
     private static void displayDepartamentos() throws SQLException {
@@ -38,9 +67,12 @@ public class App {
         }
     }
 
-    private static void displayMenuPrincipal() {
-        System.out.println("1. Mostrar departamentos");
-        System.out.println("2. Salir");
+    private static void displayMenuDepartamentos(Usuario usuario) throws SQLException {
+        System.out.println("Departamentos");
+        System.out.println("1. Crear Departamento");
+        System.out.println("2. Editar Departamento");
+        System.out.println("3. Eliminar Departamento");
+        System.out.println("4. Volver");
 
         Scanner scanner = new Scanner(System.in);
         int option = scanner.nextInt();
@@ -48,16 +80,23 @@ public class App {
 
         switch (option) {
             case 1:
-                limpiarDisplay();
-                try {
-                    displayDepartamentos();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+
+                Usuario nuevoUsuario = new Usuario(); 
+                nuevoUsuario.save(); 
+                System.out.println("Departamento creado exitosamente.");
                 break;
             case 2:
-                System.exit(0);
+                System.out.println("Editar Departamento (pendiente de implementación)");
                 break;
+            case 3:
+                System.out.println("Eliminar Departamento (pendiente de implementación)");
+                break;
+            case 4:
+                displayMenuPrincipal(usuario);
+                break;
+            default:
+                System.out.println("Opción no válida.");
+                displayMenuDepartamentos(usuario); // Display menu again for invalid option
         }
     }
 

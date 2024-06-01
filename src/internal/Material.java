@@ -1,3 +1,4 @@
+package internal;
 import java.sql.SQLException;
 
 public class Material {

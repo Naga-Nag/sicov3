@@ -1,3 +1,4 @@
+package internal;
 public class Obra {
     private int id;
     private String nombre;

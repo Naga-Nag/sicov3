@@ -2,6 +2,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import internal.MySQLConnector;
+import internal.Usuario;
+
 public class App {
 
     public static void main(String[] args) throws SQLException {

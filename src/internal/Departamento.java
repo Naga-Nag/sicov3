@@ -2,6 +2,8 @@ package internal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import db.MySQLConnector;
+
 public class Departamento {
     private int id;
     private String cuatrigrama;

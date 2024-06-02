@@ -1,6 +1,8 @@
 package internal;
 import java.sql.SQLException;
 
+import db.MySQLConnector;
+
 public class Material {
     private int id;
     private String nomenclatura;

@@ -20,24 +20,6 @@ public class Material {
         this.precio = precio;
     }
 
-    public void dbUpload() throws SQLException {
-        MySQLConnector con = new MySQLConnector();
-        try {
-            con.query("INSERT INTO Material VALUES (" + this.id + ", '" + this.nomenclatura + "', '" + this.nombre + "', '" + this.descripcion + "', " + this.obra_id + ", " + this.precio + ")");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void dbDelete() throws SQLException {
-        MySQLConnector con = new MySQLConnector();
-        try {
-            con.query("DELETE FROM Material WHERE id = " + this.id);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public int getId() {
         return id;
     }

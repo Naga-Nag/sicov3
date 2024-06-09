@@ -8,9 +8,7 @@ CREATE TABLE Usuario (
 )
 
 INSERT INTO Usuario (nombre, password, departamento_id, admin) VALUES
-('admin', 'admin', 1, true)
+('admin', 'admin', 1, true) -- Creo el superadmin por defecto
 
 
-
-
-DROP TABLE Usuario
+-- DROP TABLE Usuario

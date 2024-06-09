@@ -1,6 +1,5 @@
 package internal;
 import java.sql.SQLException;
-
 import db.MySQLConnector;
 
 public class Usuario {
@@ -26,28 +25,7 @@ public class Usuario {
         this.admin = admin;
     }
 
-    public boolean save() throws SQLException {
-        String query;
-        if (this.id > 0) {
-            //Si el id "existe", es una actualización
-            query = "UPDATE Usuario SET nombre = ?, password = ?, departamento_id = ? WHERE id = ?";
-        } else {
-            //Si el id "no existe", es una inserción
-            query = "INSERT INTO Usuario (nombre, password, departamento_id) VALUES (?, ?, ?)";
-        }
-
-        try (var preparedStatement = MySQLConnector.getConnection().prepareStatement(query)) {
-            preparedStatement.setString(1, this.nombre);
-            preparedStatement.setString(2, this.password);
-            preparedStatement.setInt(3, this.departamento_id);
-            if (this.id > 0) {
-                preparedStatement.setInt(4, this.id);
-            }
-            return preparedStatement.executeUpdate() > 0;
-        }
-    }
-
-    //getters y setters
+    //getters y setters, justo esta clase no tiene mucho misterio
 
     public int getId() {
         return id;
@@ -81,6 +59,7 @@ public class Usuario {
         this.departamento_id = departamento_id;
     }
 
+    //la podria mover a la clase de administrador TODO: mejorar
     public boolean esAdmin() {
         return admin;
     }

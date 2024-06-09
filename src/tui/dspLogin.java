@@ -5,25 +5,31 @@ import java.util.Scanner;
 import db.MySQLConnector;
 import internal.Usuario;
 
+/* Separar dspLogin de la App proximamente  WIP*/
+
 public class dspLogin {
     public static Usuario display() throws SQLException {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Username: ");
-        String username = scanner.nextLine();
-        System.out.println("Password: ");
-        String password = scanner.nextLine();
-        
+        Scanner loginscanner = new Scanner(System.in);
+        System.out.println("Username:");
+        String username = loginscanner.nextLine();
+        System.out.println("Password:");
+        String password = loginscanner.nextLine();
+        //loginscanner.close(); Por alguna razon que no comprendo, si cierro el scanner aca, no me funciona bien el sig scanner del menu...
 
         MySQLConnector con = new MySQLConnector();
         try {
             Usuario usuario = con.login(username, password);
-            scanner.close();
-            return usuario;
+            if (usuario == null) {
+                System.out.println("Credenciales invalidas");
+                System.exit(0);
+            }
+            utils.limpiarDisplay();
+            tui.dspMenuPrincipal.menu(usuario);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
-        scanner.close();
+        loginscanner.close();
+
         return null;
     }
 }

@@ -32,7 +32,7 @@ public class dspDepartamentos {
         int option = scanner.nextInt();
         scanner.nextLine();
 
-        Departamento.eliminarDepartamento(option);
+        //Departamento.eliminarDepartamento(option); TODO:Pendiente de implementar
         System.out.println("Departamento eliminado exitosamente.");
 
         scanner.close();
@@ -46,7 +46,7 @@ public class dspDepartamentos {
         String nombre = scanner.nextLine();
         System.out.println("Cuatrigrma: ");
         String cuatrigrma = scanner.nextLine();
-        Departamento.crearDepartamento(nombre, cuatrigrma);
+        //Departamento.crearDepartamento(nombre, cuatrigrma); TODO:Pendiente de implementar
 
         scanner.close();
     }

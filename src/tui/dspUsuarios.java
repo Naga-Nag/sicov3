@@ -56,7 +56,9 @@ public class dspUsuarios {
                 }
 
                 Usuario user = new Usuario(0, nombre, contra, 0, esAdmin);
-                user.save();
+
+                //user.GUARDAR_EN_LA_BASE_DE_DATOS(); TODO:Pendiente de implementar;
+                
                 usuInput.close();
                 System.out.println("Usuario creado exitosamente.");
                 break;

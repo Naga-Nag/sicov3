@@ -16,6 +16,8 @@ public class Departamento {
         this.nombre = nombre;
     }
 
+
+    //Directamente busca en la base de datos el departamento con la ID
     public Departamento(int id) throws SQLException {
         MySQLConnector connector = new MySQLConnector();
         ResultSet rs = connector.query("SELECT * FROM Departamento WHERE id = " + id);
@@ -29,28 +31,9 @@ public class Departamento {
         rs.close();
     }
 
-    public static boolean eliminarDepartamento(int id) throws SQLException {
-        MySQLConnector connector = new MySQLConnector();
-        try {
-            connector.execute("DELETE FROM Departamento WHERE id = " + id);
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+    // public static boolean eliminarDepartamento(int id) throws SQLException {} TODO: Implementar
 
-    public static boolean crearDepartamento(String cuatrigrama, String nombre) throws SQLException {
-        MySQLConnector connector = new MySQLConnector();
-        try {
-            connector.execute(
-                    "INSERT INTO Departamento (cuatrigrama, nombre) VALUES ('" + cuatrigrama + "', '" + nombre + "')");
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+    // public static boolean crearDepartamento(String cuatrigrama, String nombre) throws SQLException {} TODO: Implementar
 
     public int getId() {
         return id;
@@ -76,9 +59,10 @@ public class Departamento {
         this.nombre = nombre;
     }
 
+    //Esto deberia dar como resultado IFAP, id: 1
     public static void main(String[] args) {
         try {
-            Departamento d = new Departamento(1);
+            Departamento d = new Departamento(1); //IFAP
             System.out.println("ID: " + d.getId());
             System.out.println("Cuatrigrama: " + d.getCuatrigrama());
             System.out.println("Nombre: " + d.getNombre());

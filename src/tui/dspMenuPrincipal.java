@@ -12,29 +12,31 @@ public class dspMenuPrincipal {
         System.out.println("2. Usuarios");
         System.out.println("4. Salir");
 
-        Scanner scanner = new Scanner(System.in);
-        int option = scanner.nextInt();
-        scanner.nextLine();
+        Scanner menuScanner = new Scanner(System.in);
+        int option = menuScanner.nextInt();
+        menuScanner.nextLine();
+
+        System.out.println("Opcion: " + option);
 
         switch (option) {
             case 1:
                 utils.limpiarDisplay();
                 dspDepartamentos.menu(usuario);
-                break;
             case 2:
                 utils.limpiarDisplay();
                 dspUsuarios.menu(usuario);
-                break;
             case 4:
                 utils.limpiarDisplay();
                 System.exit(0);
-                break;
             default:
+                System.out.println("Opción no válida");
                 utils.limpiarDisplay();
-                System.out.println("Opción no válida.");
-                scanner.close();
-                dspMenuPrincipal.menu(usuario);
+                menu(usuario);
         }
-        scanner.close();
+        menuScanner.close();
+    }
+
+    public static void main(String[] args) throws SQLException {
+        menu(new Usuario(1, "admin", "admin", 1, true));
     }
 }

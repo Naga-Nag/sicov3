@@ -12,4 +12,4 @@ INSERT INTO Departamento (cuatrigrama, nombre) VALUES
 ('SUAP', 'SUMINISTROS')
 
 
-DROP TABLE Departamento;
+-- DROP TABLE Departamento;

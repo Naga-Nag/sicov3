@@ -13,6 +13,7 @@ public class MySQLConnector {
 
   private static Connection con;
 
+  //Conexion a la db sico
   public MySQLConnector() throws SQLException {
     try {
       con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sico", "root", "root");
@@ -21,10 +22,12 @@ public class MySQLConnector {
     }
   }
 
+  //Devuelve la connection, todavia no ley doy uso pero siento que en algun momento me va a ser util
   public static Connection getConnection() {
     return con;
   }
 
+  //Un atajo para hacer un query
   public ResultSet query(String query) throws SQLException {
     try {
       return con.createStatement().executeQuery(query);
@@ -33,6 +36,7 @@ public class MySQLConnector {
     }
   }
 
+  //Un atajo para hacer queries que no devuelven RS
   public void execute(String query) throws SQLException {
     try {
       con.createStatement().execute(query);
@@ -41,11 +45,15 @@ public class MySQLConnector {
     }
   }
 
+  //Devuelve un ResultSet con todos los departamentos, me conviene usar un vector, lista, arraylist?
   public ResultSet getDepartamentos() throws SQLException {
     MySQLConnector connector = new MySQLConnector();
     return connector.query("SELECT * FROM Departamento");
-  }
+    //Deberia crear este tipo de funciones aca o quiza seria mejor si lo hago en su propia clase dentro de internal???
+  } //TODO: pensar que hago con eso
 
+
+  //Atajo para imprimir el ResultSet
   public String print(ResultSet rs) throws SQLException {
     StringBuilder sb = new StringBuilder();
     while (rs.next()) {
@@ -59,6 +67,7 @@ public class MySQLConnector {
     return sb.toString();
   }
 
+  //En un futuro quiero hashear el password pero por ahora queda en texto plano :S
   public static Usuario login(String nombre, String password) throws SQLException {
     String query = "SELECT * FROM Usuario WHERE nombre = ? AND password = ?";
 
@@ -82,6 +91,7 @@ public class MySQLConnector {
     }
   }
 
+  //Devuelve un ResultSet con todos los usuarios
   public ResultSet getUsuarios() throws SQLException {
     MySQLConnector connector = new MySQLConnector();
     return connector.query("SELECT * FROM Usuario");
@@ -90,7 +100,11 @@ public class MySQLConnector {
   public static void main(String[] args) throws SQLException {
     dspDepartamentos.departamentos();
 
-    //Busco que el usuario que haga queries sea admin en este caso
-    dspUsuarios.usuarios(new Usuario(1, "admin", "admin", 1, true));
+    //El usuario que haga queries tiene que ser admin en este caso
+    Usuario admin = new Usuario(1, "admin", "admin", 1, true);
+    dspUsuarios.usuarios(admin);
+
+    //Deberia resultar en el usuario correcto
+    assert (login(admin.getNombre(), admin.getPassword()) != null);
   }
 }

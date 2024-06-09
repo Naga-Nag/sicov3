@@ -11,7 +11,6 @@ public class dspUsuarios {
 
     public static void menu(Usuario usuario) throws SQLException {
         utils.limpiarDisplay();
-        displayUsuarios();
         menuInterno(usuario);
     }
 
@@ -41,21 +40,18 @@ public class dspUsuarios {
                     dspDepartamentos.menu(usuario);
                 }
 
-                boolean esAdmin = false;
+                int rol = 1;
 
-                if (usuario.esAdmin()) {
+                if (usuario.getRol() == 3) {
                     System.out.println("Administrador: S/N");
                     String admin = usuInput.nextLine();
 
                     if (admin.equals("S")) {
-                        esAdmin = true;
-                    }
-                    else {
-                        esAdmin = false;
+                        rol = 3;
                     }
                 }
 
-                Usuario user = new Usuario(0, nombre, contra, 0, esAdmin);
+                Usuario user = new Usuario(0, nombre, contra, 0, rol);
 
                 //user.GUARDAR_EN_LA_BASE_DE_DATOS(); TODO:Pendiente de implementar;
                 
@@ -95,7 +91,7 @@ public class dspUsuarios {
     }
 
     public static void usuarios(Usuario usuario) throws SQLException {
-        if (usuario.esAdmin()) {
+        if (usuario.getRol() == 3) {
             displayUsuarios();
         }
     }

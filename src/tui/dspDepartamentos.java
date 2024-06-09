@@ -52,7 +52,7 @@ public class dspDepartamentos {
     }
 
     public static void menuInterno(Usuario usuario) throws SQLException {
-        if (usuario.esAdmin()) {
+        if (usuario.getRol() == 3) {
             System.out.println(
                     "1. Crear Departamento  | 2. Editar Departamento  | 3. Eliminar Departamento  | 4. Volver");
         }
@@ -84,6 +84,6 @@ public class dspDepartamentos {
     }
 
     public static void main(String[] args) throws SQLException {
-        menu(new Usuario(1, "admin", "admin", 1, true));
+        menu(new Usuario(1, "admin", "admin", 1, 3));
     }
 }

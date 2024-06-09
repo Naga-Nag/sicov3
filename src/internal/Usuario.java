@@ -1,28 +1,28 @@
 package internal;
-import java.sql.SQLException;
-import db.MySQLConnector;
 
+
+//En rigor el usuario solo debe consultar obras (TODO: Implementar funciones jerarquicas Usuario, Operador, Administrador)
 public class Usuario {
     private int id;
     private String nombre;
     private String password;
     private int departamento_id;
-    private boolean admin = false;
+    private int rol = 1; // 1: Usuario, 2: Operador, 3: Administrador
 
-    public Usuario(int id, String nombre, String password, int departamento_id, boolean admin) {
+    public Usuario(int id, String nombre, String password, int departamento_id, int rol) {
         this.id = id;
         this.nombre = nombre;
         this.password = password;
         this.departamento_id = departamento_id;
-        this.admin = admin;
+        this.rol = rol;
     }
 
-    public Usuario(String nombre, String password, int departamento_id, boolean admin) {
+    public Usuario(String nombre, String password, int departamento_id, int rol) {
         this.id = -1;
         this.nombre = nombre;
         this.password = password;
         this.departamento_id = departamento_id;
-        this.admin = admin;
+        this.rol = rol;
     }
 
     //getters y setters, justo esta clase no tiene mucho misterio
@@ -59,8 +59,7 @@ public class Usuario {
         this.departamento_id = departamento_id;
     }
 
-    //la podria mover a la clase de administrador TODO: mejorar
-    public boolean esAdmin() {
-        return admin;
+    public int getRol() {
+        return rol;
     }
 }

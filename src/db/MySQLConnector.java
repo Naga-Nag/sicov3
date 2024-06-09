@@ -82,8 +82,7 @@ public class MySQLConnector {
             rs.getString("nombre"),
             rs.getString("password"),
             rs.getInt("departamento_id"),
-            rs.getBoolean("admin")
-
+            rs.getInt("rol")
         );
       } else {
         return null;
@@ -101,7 +100,7 @@ public class MySQLConnector {
     dspDepartamentos.departamentos();
 
     //El usuario que haga queries tiene que ser admin en este caso
-    Usuario admin = new Usuario(1, "admin", "admin", 1, true);
+    Usuario admin = new Usuario(1, "admin", "admin", 1, 3);
     dspUsuarios.usuarios(admin);
 
     //Deberia resultar en el usuario correcto

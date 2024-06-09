@@ -37,6 +37,6 @@ public class dspMenuPrincipal {
     }
 
     public static void main(String[] args) throws SQLException {
-        menu(new Usuario(1, "admin", "admin", 1, true));
+        menu(new Usuario(1, "admin", "admin", 1,3));
     }
 }

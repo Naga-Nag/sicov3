@@ -4,11 +4,11 @@ CREATE TABLE Usuario (
     nombre VARCHAR(50) NOT NULL,
     password VARCHAR(50) NOT NULL,
     departamento_id INTEGER,
-    admin BOOLEAN DEFAULT false
+    rol INT DEFAULT 1 -- 1: Usuario, 2: Operador, 3: Administrador
 )
 
-INSERT INTO Usuario (nombre, password, departamento_id, admin) VALUES
-('admin', 'admin', 1, true) -- Creo el superadmin por defecto
+INSERT INTO Usuario (nombre, password, departamento_id, rol) VALUES
+('admin', 'admin', 1, 3) -- Creo el superadmin por defecto
 
 
 -- DROP TABLE Usuario

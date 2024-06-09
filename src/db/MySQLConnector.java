@@ -30,6 +30,14 @@ public class MySQLConnector {
     }
   }
 
+  public void execute(String query) throws SQLException {
+    try {
+      con.createStatement().execute(query);
+    } catch (SQLException ex) {
+      throw ex;
+    }
+  }
+
   public ResultSet getDepartamentos() throws SQLException {
     MySQLConnector connector = new MySQLConnector();
     return connector.query("SELECT * FROM Departamento");

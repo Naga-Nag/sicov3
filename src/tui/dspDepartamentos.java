@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import db.MySQLConnector;
+import internal.Departamento;
 import internal.Usuario;
 
 public class dspDepartamentos {
@@ -22,9 +23,38 @@ public class dspDepartamentos {
         }
     }
 
+    private static void menuEliminarDepartamento() throws SQLException {
+        utils.limpiarDisplay();
+        departamentos();
+        System.out.println("Que departamento desea eliminar?");
+
+        Scanner scanner = new Scanner(System.in);
+        int option = scanner.nextInt();
+        scanner.nextLine();
+
+        Departamento.eliminarDepartamento(option);
+        System.out.println("Departamento eliminado exitosamente.");
+
+        scanner.close();
+    }
+
+    private static void menuCrearDepartamento() throws SQLException {
+        utils.limpiarDisplay();
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Nombre: ");
+        String nombre = scanner.nextLine();
+        System.out.println("Cuatrigrma: ");
+        String cuatrigrma = scanner.nextLine();
+        Departamento.crearDepartamento(nombre, cuatrigrma);
+
+        scanner.close();
+    }
+
     public static void menuInterno(Usuario usuario) throws SQLException {
         if (usuario.esAdmin()) {
-            System.out.println("1. Crear Departamento  | 2. Editar Departamento  | 3. Eliminar Departamento  | 4. Volver");
+            System.out.println(
+                    "1. Crear Departamento  | 2. Editar Departamento  | 3. Eliminar Departamento  | 4. Volver");
         }
 
         Scanner scanner = new Scanner(System.in);
@@ -33,15 +63,14 @@ public class dspDepartamentos {
 
         switch (option) {
             case 1:
-
-                System.out.println("Departamento creado exitosamente.");
-                break;
+                menuCrearDepartamento();
+                menu(usuario);
             case 2:
                 System.out.println("Editar Departamento (pendiente de implementación)");
                 break;
             case 3:
-                System.out.println("Eliminar Departamento (pendiente de implementación)");
-                break;
+                menuEliminarDepartamento();
+                menu(usuario);
             case 4:
                 utils.limpiarDisplay();
                 dspMenuPrincipal.menu(usuario);
@@ -52,5 +81,9 @@ public class dspDepartamentos {
         }
 
         scanner.close();
+    }
+
+    public static void main(String[] args) throws SQLException {
+        menu(new Usuario(1, "admin", "admin", 1, true));
     }
 }

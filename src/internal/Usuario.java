@@ -29,10 +29,10 @@ public class Usuario {
     public boolean save() throws SQLException {
         String query;
         if (this.id > 0) {
-            
+            //Si el id "existe", es una actualización
             query = "UPDATE Usuario SET nombre = ?, password = ?, departamento_id = ? WHERE id = ?";
         } else {
-            
+            //Si el id "no existe", es una inserción
             query = "INSERT INTO Usuario (nombre, password, departamento_id) VALUES (?, ?, ?)";
         }
 
@@ -46,6 +46,8 @@ public class Usuario {
             return preparedStatement.executeUpdate() > 0;
         }
     }
+
+    //getters y setters
 
     public int getId() {
         return id;

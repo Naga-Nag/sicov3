@@ -1,4 +1,5 @@
 package internal;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -26,6 +27,29 @@ public class Departamento {
             throw new RuntimeException("No existe Departamento con ID " + id);
         }
         rs.close();
+    }
+
+    public static boolean eliminarDepartamento(int id) throws SQLException {
+        MySQLConnector connector = new MySQLConnector();
+        try {
+            connector.execute("DELETE FROM Departamento WHERE id = " + id);
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean crearDepartamento(String cuatrigrama, String nombre) throws SQLException {
+        MySQLConnector connector = new MySQLConnector();
+        try {
+            connector.execute(
+                    "INSERT INTO Departamento (cuatrigrama, nombre) VALUES ('" + cuatrigrama + "', '" + nombre + "')");
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public int getId() {
@@ -63,4 +87,3 @@ public class Departamento {
         }
     }
 }
-

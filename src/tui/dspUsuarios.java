@@ -87,7 +87,14 @@ public class dspUsuarios {
 
         while (usuarios.next()) {
             System.out.println(
-                    usuarios.getInt(1) + " " + usuarios.getString(2) + " " + usuarios.getString(3));
+                    usuarios.getInt(1) + " " + /* usuarios.getString(2) + */ " " + usuarios.getString(3));
+                    //La contraseña no se muestra por las dudas
+        }
+    }
+
+    public static void usuarios(Usuario usuario) throws SQLException {
+        if (usuario.esAdmin()) {
+            displayUsuarios();
         }
     }
 }

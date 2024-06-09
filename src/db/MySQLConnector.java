@@ -1,10 +1,13 @@
 package db;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import internal.Usuario;
+import tui.dspDepartamentos;
+import tui.dspUsuarios;
 
 public class MySQLConnector {
 
@@ -43,6 +46,19 @@ public class MySQLConnector {
     return connector.query("SELECT * FROM Departamento");
   }
 
+  public String print(ResultSet rs) throws SQLException {
+    StringBuilder sb = new StringBuilder();
+    while (rs.next()) {
+      sb.append(rs.getInt("id"));
+      sb.append(" ");
+      sb.append(rs.getString("cuatrigrama"));
+      sb.append(" ");
+      sb.append(rs.getString("nombre"));
+      sb.append("\n");
+    }
+    return sb.toString();
+  }
+
   public static Usuario login(String nombre, String password) throws SQLException {
     String query = "SELECT * FROM Usuario WHERE nombre = ? AND password = ?";
 
@@ -69,5 +85,12 @@ public class MySQLConnector {
   public ResultSet getUsuarios() throws SQLException {
     MySQLConnector connector = new MySQLConnector();
     return connector.query("SELECT * FROM Usuario");
+  }
+
+  public static void main(String[] args) throws SQLException {
+    dspDepartamentos.departamentos();
+
+    //Busco que el usuario que haga queries sea admin en este caso
+    dspUsuarios.usuarios(new Usuario(1, "admin", "admin", 1, true));
   }
 }

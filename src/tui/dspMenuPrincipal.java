@@ -19,11 +19,7 @@ public class dspMenuPrincipal {
         switch (option) {
             case 1:
                 utils.limpiarDisplay();
-                try {
-                    dspDepartamentos.menu(usuario);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                dspDepartamentos.menu(usuario);
                 break;
             case 2:
                 utils.limpiarDisplay();
@@ -36,9 +32,9 @@ public class dspMenuPrincipal {
             default:
                 utils.limpiarDisplay();
                 System.out.println("Opción no válida.");
+                scanner.close();
                 dspMenuPrincipal.menu(usuario);
         }
-
         scanner.close();
     }
 }

@@ -84,8 +84,16 @@ public class Material {
     public String getDescripcion() {
         return descripcion;
     }
+    
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public double getStock() {
+        return stock;
+    }
+    public void setStock(double stock) {
+        this.stock = stock;
     }
     
     public double getPrecio() {

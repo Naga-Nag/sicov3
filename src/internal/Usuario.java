@@ -1,5 +1,8 @@
 package internal;
 
+import java.sql.SQLException;
+
+import db.MySQLConnector;
 
 //En rigor el usuario solo debe consultar obras (TODO: Implementar funciones jerarquicas Usuario, Operador, Administrador)
 public class Usuario {
@@ -23,6 +26,21 @@ public class Usuario {
         this.password = password;
         this.departamento_id = departamento_id;
         this.rol = rol;
+    }
+
+    public static void eliminarUsuario(int id) throws SQLException {
+        MySQLConnector connector = new MySQLConnector();
+        connector.execute("DELETE FROM Usuario WHERE id = " + id);
+    }
+
+    public static void crearUsuario(String nombre, String password, int rol) throws SQLException {
+        MySQLConnector connector = new MySQLConnector();
+        connector.execute("INSERT INTO Usuario (nombre, password, rol) VALUES ('" + nombre + "', '" + password + "', " + rol + ")");
+    }
+
+    public static void editarUsuario(int id, String nombre, String password, int rol) throws SQLException {
+        MySQLConnector connector = new MySQLConnector();
+        connector.execute("UPDATE Usuario SET nombre = '" + nombre + "', password = '" + password + "', rol = " + rol + " WHERE id = " + id);
     }
 
     //getters y setters, justo esta clase no tiene mucho misterio

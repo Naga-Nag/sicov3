@@ -9,7 +9,9 @@ import internal.Departamento;
 import internal.Usuario;
 
 public class dspDepartamentos {
+
     public static void menu(Usuario usuario) throws SQLException {
+        utils.limpiarDisplay();
         departamentos();
         menuInterno(usuario);
     }
@@ -23,54 +25,63 @@ public class dspDepartamentos {
         }
     }
 
-    private static void menuEliminarDepartamento() throws SQLException {
+    private static void menuEliminarDepartamento(Scanner scanner) throws SQLException {
         utils.limpiarDisplay();
         departamentos();
-        System.out.println("Que departamento desea eliminar?");
-
-        Scanner scanner = new Scanner(System.in);
+        System.out.println("ID de departamento a eliminar: ");
         int option = scanner.nextInt();
         scanner.nextLine();
 
-        //Departamento.eliminarDepartamento(option); TODO:Pendiente de implementar
-        System.out.println("Departamento eliminado exitosamente.");
-
-        scanner.close();
+        Departamento.eliminarDepartamento(option);
     }
 
-    private static void menuCrearDepartamento() throws SQLException {
+    private static void menuCrearDepartamento(Scanner scanner) throws SQLException {
         utils.limpiarDisplay();
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Nombre: ");
+        System.out.println("Nombre Completo: ");
         String nombre = scanner.nextLine();
         System.out.println("Cuatrigrma: ");
         String cuatrigrma = scanner.nextLine();
-        //Departamento.crearDepartamento(nombre, cuatrigrma); TODO:Pendiente de implementar
-
-        scanner.close();
+        Departamento.crearDepartamento(nombre, cuatrigrma);
     }
 
-    public static void menuInterno(Usuario usuario) throws SQLException {
+    private static void menuEditarDepartamento(Scanner scanner) throws SQLException {
+        utils.limpiarDisplay();
+        departamentos();
+        System.out.println("ID de departamento a editar: ");
+        int option = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Nombre Completo: ");
+        String nombre = scanner.nextLine();
+        System.out.println("Cuatrigrma: ");
+        String cuatrigrma = scanner.nextLine();
+        Departamento.editarDepartamento(option, nombre, cuatrigrma);
+    }
+
+    private static void menuInterno(Usuario usuario) throws SQLException {
+        Scanner scanner = new Scanner(System.in);
+
         if (usuario.getRol() == 3) {
             System.out.println(
-                    "1. Crear Departamento  | 2. Editar Departamento  | 3. Eliminar Departamento  | 4. Volver");
+                    "1. Crear Departamento  | 2. Editar Departamento  | 3. Eliminar Departamento  | 4. Volver");
         }
 
-        Scanner scanner = new Scanner(System.in);
         int option = scanner.nextInt();
         scanner.nextLine();
 
         switch (option) {
             case 1:
-                menuCrearDepartamento();
+                menuCrearDepartamento(scanner);
                 menu(usuario);
-            case 2:
-                System.out.println("Editar Departamento (pendiente de implementación)");
                 break;
-            case 3:
-                menuEliminarDepartamento();
+            case 2:
+                System.out.println("Editar Departamento");
+                menuEditarDepartamento(scanner);
                 menu(usuario);
+
+            case 3:
+                menuEliminarDepartamento(scanner);
+                menu(usuario);
+                break;
             case 4:
                 utils.limpiarDisplay();
                 dspMenuPrincipal.menu(usuario);

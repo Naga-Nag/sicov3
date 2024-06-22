@@ -11,5 +11,6 @@ INSERT INTO Departamento (cuatrigrama, nombre) VALUES
 ('PPAP', 'PROGRAMAS Y PRESUPUESTOS'),
 ('SUAP', 'SUMINISTROS')
 
+-- ALTER TABLE Departamento AUTO_INCREMENT = 1;
 
 -- DROP TABLE Departamento;

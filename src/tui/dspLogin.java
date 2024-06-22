@@ -5,7 +5,7 @@ import java.util.Scanner;
 import db.MySQLConnector;
 import internal.Usuario;
 
-/* Separar dspLogin de la App proximamente  WIP*/
+/* Separar dspLogin de la App proximamente WIP*/
 
 public class dspLogin {
     public static Usuario display() throws SQLException {

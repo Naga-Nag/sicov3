@@ -45,29 +45,7 @@ public class MySQLConnector {
     }
   }
 
-  //Devuelve un ResultSet con todos los departamentos, me conviene usar un vector, lista, arraylist?
-  public ResultSet getDepartamentos() throws SQLException {
-    MySQLConnector connector = new MySQLConnector();
-    return connector.query("SELECT * FROM Departamento");
-    //Deberia crear este tipo de funciones aca o quiza seria mejor si lo hago en su propia clase dentro de internal???
-  } //TODO: pensar que hago con eso
 
-
-  //Atajo para imprimir el ResultSet
-  public String print(ResultSet rs) throws SQLException {
-    StringBuilder sb = new StringBuilder();
-    while (rs.next()) {
-      sb.append(rs.getInt("id"));
-      sb.append(" ");
-      sb.append(rs.getString("cuatrigrama"));
-      sb.append(" ");
-      sb.append(rs.getString("nombre"));
-      sb.append("\n");
-    }
-    return sb.toString();
-  }
-
-  //En un futuro quiero hashear el password pero por ahora queda en texto plano :S
   public static Usuario login(String nombre, String password) throws SQLException {
     String query = "SELECT * FROM Usuario WHERE nombre = ? AND password = ?";
 

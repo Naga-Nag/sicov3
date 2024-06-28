@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import db.MySQLConnector;
 import internal.Departamento;
 import internal.Usuario;
 
@@ -17,8 +16,7 @@ public class dspDepartamentos {
     }
 
     public static void departamentos() throws SQLException {
-        MySQLConnector con = new MySQLConnector();
-        ResultSet departamentos = con.getDepartamentos();
+        ResultSet departamentos = Departamento.getDepartamentos();
         while (departamentos.next()) {
             System.out.println(
                     departamentos.getInt(1) + " " + departamentos.getString(2) + " " + departamentos.getString(3));

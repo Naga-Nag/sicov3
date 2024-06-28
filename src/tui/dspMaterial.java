@@ -6,7 +6,7 @@ import java.util.Scanner;
 import internal.Material;
 import internal.Usuario;
 
-//TODO: Implementar dspMaterial
+
 public class dspMaterial {
     public static void menu(Usuario usuario) throws SQLException {
         utils.limpiarDisplay();

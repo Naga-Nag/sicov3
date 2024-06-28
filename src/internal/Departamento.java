@@ -61,6 +61,26 @@ public class Departamento {
         connector.execute("UPDATE Departamento SET nombre = '" + nombre + "', cuatrigrama = '" + cuatrigrama + "' WHERE id = " + id);
     }
 
+    public static ResultSet getDepartamentos() throws SQLException {
+        MySQLConnector connector = new MySQLConnector();
+        return connector.query("SELECT * FROM Departamento");
+    }
+    
+    
+      //Atajo para imprimir el ResultSet
+      public String print(ResultSet rs) throws SQLException {
+        StringBuilder sb = new StringBuilder();
+        while (rs.next()) {
+          sb.append(rs.getInt("id"));
+          sb.append(" ");
+          sb.append(rs.getString("cuatrigrama"));
+          sb.append(" ");
+          sb.append(rs.getString("nombre"));
+          sb.append("\n");
+        }
+        return sb.toString();
+      }
+
     public int getId() {
         return id;
     }

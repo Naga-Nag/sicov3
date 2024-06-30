@@ -2,6 +2,9 @@ package internal;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
 import db.MySQLConnector;
 
@@ -61,9 +64,14 @@ public class Departamento {
         connector.execute("UPDATE Departamento SET nombre = '" + nombre + "', cuatrigrama = '" + cuatrigrama + "' WHERE id = " + id);
     }
 
-    public static ResultSet getDepartamentos() throws SQLException {
+    public static ArrayList<Departamento> getDepartamentos() throws SQLException {
         MySQLConnector connector = new MySQLConnector();
-        return connector.query("SELECT * FROM Departamento");
+        ResultSet rs = connector.query("SELECT * FROM Departamento");
+        ArrayList<Departamento> departamentos = new ArrayList<>();
+        while (rs.next()) {
+            departamentos.add(new Departamento(rs.getInt("id"), rs.getString("cuatrigrama"), rs.getString("nombre")));
+        }
+        return departamentos;
     }
     
     

@@ -1,7 +1,7 @@
 package tui;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import internal.Departamento;
@@ -16,10 +16,10 @@ public class dspDepartamentos {
     }
 
     public static void departamentos() throws SQLException {
-        ResultSet departamentos = Departamento.getDepartamentos();
-        while (departamentos.next()) {
-            System.out.println(
-                    departamentos.getInt(1) + " " + departamentos.getString(2) + " " + departamentos.getString(3));
+        ArrayList<Departamento> departamentos = Departamento.getDepartamentos();
+
+        for (Departamento d : departamentos) {
+            System.out.println(d.getId() + " " + d.getCuatrigrama() + " " + d.getNombre());
         }
     }
 

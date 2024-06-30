@@ -33,25 +33,30 @@ public class dspObras {
     }
 
     /*
-     * TODO: Bug cuando hay mas de una obra en el arraylist
+     * SOLUCIONADO: Bug cuando hay mas de una obra en el arraylist
      * en la consola se repiten algunos datos
-     * pareciera que tiene que ver con la consola mas que con el programa
+     * pareciera que tiene que ver con algo de la consola mas que con el programa
+     *
+     * 
+     * Se soluciono con el uso de un StringBuilder, system.out.println() causaba el bug de alguna manera
      */
     private static void mostrarObras(Usuario usuario) throws SQLException {
         if (usuario.esAdmin()) {
             ArrayList<Obra> obras = Obra.todasLasObras();
-
-            System.out.println("|| Total de Obras: " + obras.size() + " ||");
-            System.out.println("-----------------------\n");
-
+    
+            StringBuilder sb = new StringBuilder();
+            sb.append("|| Total de Obras: ").append(obras.size()).append(" ||\n");
+            sb.append("-----------------------\n");
+    
             for (Obra obra : obras) {
-                System.out.print(""); // test
-                System.out.println("ID: " + obra.getId());
-                System.out.println("Nombre: " + obra.getNombre());
-                System.out.println("Descripción: " + obra.getDescripcion());
-                System.out.println("Departamento: " + obra.getDepartamento());
-                System.out.println("------------------------------------\n");
+                sb.append("ID: ").append(obra.getId()).append("\n");
+                sb.append("Nombre: ").append(obra.getNombre()).append("\n");
+                sb.append("Descripción: ").append(obra.getDescripcion()).append("\n");
+                sb.append("Departamento: ").append(obra.getDepartamento()).append("\n");
+                sb.append("------------------------------------\n");
             }
+    
+            System.out.println(sb.toString());
         }
     }
 

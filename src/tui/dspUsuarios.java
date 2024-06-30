@@ -22,9 +22,12 @@ public class dspUsuarios {
         String contra = scanner.nextLine();
         System.out.println("Confirmar contraseña: ");
         String confirmarContra = scanner.nextLine();
-        if (!contra.equals(confirmarContra)) {
+        while (!contra.equals(confirmarContra)) {
             System.out.println("Las contraseñas no coinciden");
-            menuCrearUsuario(usuario, scanner); 
+            System.out.println("Contraseña: ");
+            contra = scanner.nextLine();
+            System.out.println("Confirmar contraseña: ");
+            confirmarContra = scanner.nextLine();
         }
         int rol = 1;
         if (usuario.getRol() == 3) {

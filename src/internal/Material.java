@@ -2,6 +2,7 @@ package internal;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import db.MySQLConnector;
 
@@ -22,7 +23,7 @@ public class Material {
 
     public Material(int id) throws SQLException {
         MySQLConnector connector = new MySQLConnector();
-        ResultSet rs = connector.query("SELECT * FROM Material WHERE id = " + id);
+        ResultSet rs = connector.query("SELECT * FROM Material WHERE id = " + id + ";");
         try {
             rs.next();
             this.id = rs.getInt("id");
@@ -30,23 +31,6 @@ public class Material {
             this.descripcion = rs.getString("descripcion");
             this.precio = rs.getDouble("precio");
             this.stock = rs.getDouble("stock");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void mostrarMateriales() throws SQLException {
-        MySQLConnector connector = new MySQLConnector();
-        ResultSet rs = connector.query("SELECT * FROM Material");
-        try {
-            while (rs.next()) {
-                System.out.print("ID: " + rs.getInt("id") + " || ");
-                System.out.print("Nomenclatura: " + rs.getString("nomenclatura") + " || ");
-                System.out.print("Descripción: " + rs.getString("descripcion") + " || ");
-                System.out.print("Precio: $" + rs.getInt("precio") + " || ");
-                System.out.print("Stock: " + rs.getDouble("stock") + " ||");
-                System.out.println();
-            }    
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -67,6 +51,57 @@ public class Material {
         connector.execute("DELETE FROM Material WHERE id = "+id);
     }
 
+    public void actualizarMaterial() throws SQLException {
+        MySQLConnector connector = new MySQLConnector();
+        connector.execute("UPDATE Material SET nomenclatura = '"+nomenclatura+"', descripcion = '"+descripcion+"', precio = "+precio+", stock = "+stock+" WHERE id = "+id);
+    }
+
+
+
+    // Para buscar un material por su nomenclatura
+    public Material buscarIdNomenclatura(String nomenclatura) throws SQLException {
+        MySQLConnector connector = new MySQLConnector();
+        ResultSet rs = connector.query("SELECT * FROM Material WHERE nomenclatura = '" + nomenclatura + "';");
+        try {
+            rs.next();
+            this.id = rs.getInt("id");
+            this.nomenclatura = rs.getString("nomenclatura");
+            this.descripcion = rs.getString("descripcion");
+            this.precio = rs.getDouble("precio");
+            this.stock = rs.getDouble("stock");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
+
+    // Para verificar si existe el material con el id ingresado
+    public static boolean existeMaterial(int id) throws SQLException {
+        MySQLConnector connector = new MySQLConnector();
+        ResultSet rs = connector.query("SELECT * FROM Material WHERE id = " + id + ";");
+        try {
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    //Devuelve un ArrayList con todos los materiales que se encuentren en la base de datos
+    public static ArrayList<Material> todosLosMateriales() throws SQLException {
+        MySQLConnector connector = new MySQLConnector();
+        ResultSet rs = connector.query("SELECT * FROM Material");
+        ArrayList<Material> materiales = new ArrayList<Material>();
+        try {
+            while (rs.next()) {
+                Material material = new Material(rs.getInt("id"));
+                materiales.add(material);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return materiales;
+    }
 
     public int getId() {
         return id;

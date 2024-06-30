@@ -1,8 +1,10 @@
 package tui;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import db.MySQLConnector;
 import internal.Material;
 import internal.Usuario;
 
@@ -25,15 +27,15 @@ public class dspMaterial {
         switch (option) {
             case 1:
                 menuAgregarMaterial(scanner);
-                menuInterno(usuario);
+                menu(usuario);
                 break;
             case 2:
                 menuEditarMaterial(scanner);
-                menuInterno(usuario);
+                menu(usuario);
                 break;
             case 3:
                 menuEliminarMaterial(scanner);
-                menuInterno(usuario);
+                menu(usuario);
                 break;
             case 4:
                 utils.limpiarDisplay();
@@ -45,9 +47,26 @@ public class dspMaterial {
         }
     }
 
+    static void mostrarMateriales() throws SQLException {
+        MySQLConnector connector = new MySQLConnector();
+        ResultSet rs = connector.query("SELECT * FROM Material");
+        try {
+            while (rs.next()) {
+                System.out.print("ID: " + rs.getInt("id") + " || ");
+                System.out.print("Nomenclatura: " + rs.getString("nomenclatura") + " || ");
+                System.out.print("Descripción: " + rs.getString("descripcion") + " || ");
+                System.out.print("Precio: $" + rs.getInt("precio") + " || ");
+                System.out.print("Stock: " + rs.getDouble("stock") + " ||");
+                System.out.println();
+            }    
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static void menuEliminarMaterial(Scanner scanner) throws SQLException {
         utils.limpiarDisplay();
-        Material.mostrarMateriales();
+        mostrarMateriales();
         System.out.println("ID de Material a eliminar: ");
         int id = scanner.nextInt();
         scanner.nextLine();
@@ -75,7 +94,7 @@ public class dspMaterial {
 
     private static void menuEditarMaterial(Scanner scanner) throws SQLException {
         utils.limpiarDisplay();
-        Material.mostrarMateriales();
+        mostrarMateriales();
         System.out.println("ID de Material a editar: ");
         int id = scanner.nextInt();
         scanner.nextLine();
@@ -92,7 +111,7 @@ public class dspMaterial {
     }
 
     private static void materiales(Usuario usuario) throws SQLException {
-        Material.mostrarMateriales();
+        mostrarMateriales();
     }
 
     public static void main(String[] args) throws SQLException {

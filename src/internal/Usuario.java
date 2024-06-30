@@ -4,7 +4,6 @@ import java.sql.SQLException;
 
 import db.MySQLConnector;
 
-//En rigor el usuario solo debe consultar obras (TODO: Implementar funciones jerarquicas Usuario, Operador, Administrador)
 public class Usuario {
     private int id;
     private String nombre;
@@ -28,16 +27,19 @@ public class Usuario {
         this.rol = rol;
     }
 
+    //Elimina usuario de la db con el id dado
     public static void eliminarUsuario(int id) throws SQLException {
         MySQLConnector connector = new MySQLConnector();
         connector.execute("DELETE FROM Usuario WHERE id = " + id);
     }
 
+    //Inserta usuario en la db
     public static void crearUsuario(String nombre, String password, int rol) throws SQLException {
         MySQLConnector connector = new MySQLConnector();
         connector.execute("INSERT INTO Usuario (nombre, password, rol) VALUES ('" + nombre + "', '" + password + "', " + rol + ")");
     }
 
+    //Edita usuario en la db
     public static void editarUsuario(int id, String nombre, String password, int rol) throws SQLException {
         MySQLConnector connector = new MySQLConnector();
         connector.execute("UPDATE Usuario SET nombre = '" + nombre + "', password = '" + password + "', rol = " + rol + " WHERE id = " + id);
@@ -79,5 +81,9 @@ public class Usuario {
 
     public int getRol() {
         return rol;
+    }
+
+    public boolean esAdmin() {
+        return this.rol == 3;
     }
 }

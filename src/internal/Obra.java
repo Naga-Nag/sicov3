@@ -83,6 +83,7 @@ public class Obra {
     public static void eliminarObra(int id) throws SQLException {
         MySQLConnector connector = new MySQLConnector();
         connector.execute("DELETE FROM Obra WHERE id = " + id + ";");
+        
     }
 
     public boolean existe() throws SQLException {

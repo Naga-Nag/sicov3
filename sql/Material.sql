@@ -7,9 +7,10 @@ CREATE TABLE Material (
     PRIMARY KEY (id)
 )
 
-INSERT INTO Material (nomenclatura, descripcion, precio, stock) VALUES
-("Material 1", "Material de prueba 1", 100, 10);
+--INSERT INTO Material (nomenclatura, descripcion, precio, stock) VALUES ("Material 1", "Material de prueba 1", 100, 10);
 
-SELECT * FROM Material;
+--SELECT * FROM Material;
 
-DROP TABLE Material
+--DELETE FROM Material;
+
+--DROP TABLE Material

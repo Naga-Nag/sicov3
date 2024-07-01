@@ -130,12 +130,19 @@ public class dspObras {
         // Mostrar materiales disponibles
         utils.limpiarDisplay();
         var materiales = Material.todosLosMateriales();
+        if (materiales.isEmpty()) {
+            System.out.println("No hay materiales disponibles.");
+            System.out.println("Presione ENTER para continuar.");
+            scanner.nextLine();
+            utils.limpiarDisplay();
+            return;
+        }
         System.out.println("Materiales Disponibles:");
         for (Material material : materiales) {
             System.out.println("ID: " + material.getId() + " - " + material.getNomenclatura() + " - Stock: " + material.getStock());
         }
 
-        System.out.println("Ingrese la nomenclatura del material a asignar: ");
+        System.out.println("Ingrese la id del material a asignar: ");
         int idMaterial = scanner.nextInt();
 
         // Veo si el material existe
@@ -147,10 +154,8 @@ public class dspObras {
         System.out.println("Ingrese la cantidad a asignar: ");
         int cantidad = scanner.nextInt();
         scanner.nextLine();
-
         // Asignar material a la obra
         Obra_Material.asignarMaterial(idObra, idMaterial, cantidad);
-        System.out.println("Material asignado exitosamente a la obra.");
     }
 
     private static void menuQuitarMaterial(Scanner scanner, int idObra) throws SQLException {
@@ -235,12 +240,15 @@ public class dspObras {
         switch (option) {
             case 1:
                 menuCrearObra(scanner);
+                menu(usuario);
                 break;
             case 2:
                 menuVerObra(scanner, usuario);
+                menu(usuario);
                 break;
             case 3:
                 menuEliminarObra(scanner, usuario);
+                menu(usuario);
                 break;
             case 4:
                 utils.limpiarDisplay();

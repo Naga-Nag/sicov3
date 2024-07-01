@@ -7,8 +7,7 @@ CREATE TABLE Usuario (
     rol INT DEFAULT 1 -- 1: Usuario, 2: Operador, 3: Administrador
 )
 
-INSERT INTO Usuario (nombre, password, departamento_id, rol) VALUES
-('admin', 'admin', 1, 3) -- Creo el superadmin por defecto
+--INSERT INTO Usuario (nombre, password, departamento_id, rol) VALUES('admin', 'admin', 1, 3) -- Creo el superadmin por defecto
 
 
 -- DROP TABLE Usuario

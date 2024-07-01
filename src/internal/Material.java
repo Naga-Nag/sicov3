@@ -56,6 +56,17 @@ public class Material {
         connector.execute("UPDATE Material SET nomenclatura = '"+nomenclatura+"', descripcion = '"+descripcion+"', precio = "+precio+", stock = "+stock+" WHERE id = "+id);
     }
 
+    public void reducirStock(int cantidad) throws SQLException {
+        MySQLConnector connector = new MySQLConnector();
+        var stock = this.stock - cantidad;
+        connector.execute("UPDATE Material SET stock = "+stock+" WHERE id = "+id);
+    }
+
+    public void incrementarStock(double cantidad) throws SQLException {
+        MySQLConnector connector = new MySQLConnector();
+        var stock = this.stock + cantidad;
+        connector.execute("UPDATE Material SET stock = "+stock+" WHERE id = "+id);
+    }
 
 
     // Para buscar un material por su nomenclatura

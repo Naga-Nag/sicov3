@@ -76,7 +76,7 @@ public class Obra_Material {
         }
         return materiales;
     }
-
+    
     public int getId_obra() {
         return obra_id;
     }
@@ -101,14 +101,6 @@ public class Obra_Material {
         this.cantidad_reservada = cantidad_reservada;
     }
 
-    public static void main(String[] args) {
-        try {
-            materialesDeObra(1);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void asignarMaterial(int idObra, int idMaterial, int cantidad) throws SQLException {
         // Existe la obra?
         if (!Obra.existeObra(idObra)) {
@@ -125,6 +117,11 @@ public class Obra_Material {
             throw new SQLException("Error: El material ya está asignado a la obra.");
         }
 
+        // Actualizo el stock del material
+        Material material = new Material(idMaterial);
+        material.reducirStock(cantidad);
+
+
         // Inserto la asociación entre obra y material
         MySQLConnector connector = new MySQLConnector();
         connector.execute
@@ -132,11 +129,6 @@ public class Obra_Material {
             "INSERT INTO obra_material (obra_id, material_id, cantidad_reservada) VALUES (" + idObra
             + ", " + idMaterial + ", " + cantidad + ")"
         );
-
-        // Actualizo el stock del material
-        Material material = new Material(idMaterial);
-        material.setStock(material.getStock() - cantidad);
-        material.actualizarMaterial();
     }
 
     public static double cantidadMaterialAsignada(int idObra, int idMaterial) throws SQLException {
@@ -178,8 +170,7 @@ public class Obra_Material {
 
         // Actualizamos el stock del material
         Material material = new Material(idMaterial);
-        material.setStock(stockAsignado + material.getStock());
-        material.actualizarMaterial();
+        material.incrementarStock(stockAsignado);
         
     }  
 
@@ -194,6 +185,10 @@ public class Obra_Material {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public void devolverMaterialObra(Material material) {
+       
     }
 
 }
